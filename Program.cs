@@ -27,7 +27,7 @@ internal class Program
         FourXORParceptron fourXorNetwork = new(1.5);
         fourXorNetwork.Train();
 
-        Console.WriteLine("Results for 4-input XOR:");
+        Console.WriteLine("Results for 4 input XOR:");
         foreach (var dataCase in testData)
         {
             double output = fourXorNetwork.CalculateOutput(dataCase.Inputs);
