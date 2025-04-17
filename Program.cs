@@ -4,44 +4,56 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        var trainingData = new List<List<TrainingData>>
+        var testData = new List<TrainingData>
         {
-            new() {
-                new([0, 0], 0),
-                new([0, 1], 1),
-                new([1, 0], 0),
-                new([1, 1], 0)
-            },
-            new() {
-                new([0, 0], 0),
-                new([0, 1], 0),
-                new([1, 0], 1),
-                new([1, 1], 0)
-            },
-            new() {
-                new([0, 0], 0),
-                new([0, 1], 1),
-                new([1, 0], 1),
-                new([0, 0], 0)
-            },
+            new([0, 0, 0, 0], 0),
+            new([0, 0, 0, 1], 1),
+            new([0, 0, 1, 0], 1),
+            new([0, 0, 1, 1], 0),
+            new([0, 1, 0, 0], 1),
+            new([0, 1, 0, 1], 0),
+            new([0, 1, 1, 0], 0),
+            new([0, 1, 1, 1], 1),
+            new([1, 0, 0, 0], 1),
+            new([1, 0, 0, 1], 0),
+            new([1, 0, 1, 0], 0),
+            new([1, 0, 1, 1], 1),
+            new([1, 1, 0, 0], 0),
+            new([1, 1, 0, 1], 1),
+            new([1, 1, 1, 0], 1),
+            new([1, 1, 1, 1], 0)
         };
 
-        XORParceptron xorNetwork = new(1.5);
-        xorNetwork.Train(trainingData);
+        FourXORParceptron fourXorNetwork = new(1.5);
+        fourXorNetwork.Train();
 
-        var data = new List<TrainingData>()
+        Console.WriteLine("Results for 4-input XOR:");
+        foreach (var dataCase in testData)
         {
+            double output = fourXorNetwork.CalculateOutput(dataCase.Inputs);
+            Console.WriteLine($"{dataCase}\t Output: {output}");
+        }
+    }
+
+    public static List<List<TrainingData>> XORParceptronTrainingData =
+    [
+        [
+            new([0, 0], 0),
+            new([0, 1], 1),
+            new([1, 0], 0),
+            new([1, 1], 0)
+        ],
+        [
+            new([0, 0], 0),
+            new([0, 1], 0),
+            new([1, 0], 1),
+            new([1, 1], 0)
+        ],
+        [
             new([0, 0], 0),
             new([0, 1], 1),
             new([1, 0], 1),
-            new([1, 1], 0)
-        };
-
-        Console.WriteLine("Results:");
-        foreach (var dataCase in data)
-        {
-            double output = xorNetwork.CalculateOutput(dataCase.Inputs);
-            Console.WriteLine($"Input: {dataCase.Inputs[0]}, {dataCase.Inputs[1]} => Output: {output}");
-        }
-    }
+            new([0, 0], 0)
+        ],
+    ];
 }

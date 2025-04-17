@@ -31,12 +31,12 @@ public class XORParceptron(double learningRate)
             foreach (var data in trainingData)
             {
                 double result = neuron.CalculateOutput(data.Inputs);
-                double error = data.DesiredOutput - result;
+                double error = data.ExpectedOutput - result;
                 totalError += Math.Abs(error);
 
                 if (error != 0)
                 {
-                    neuron.Train(data.Inputs, data.DesiredOutput, learningRate);
+                    neuron.Train(data.Inputs, data.ExpectedOutput, learningRate);
                 }
             }
         }
